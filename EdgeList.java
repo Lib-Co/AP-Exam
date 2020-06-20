@@ -24,7 +24,7 @@ public class EdgeList {
         if (edges[currentLocation] == null) {
             edges[currentLocation] = e;
             currentLocation++;
-            if (currentLocation == edges.length) {
+            if (currentLocation >= edges.length) {
                 increaseSizeOfArray();
             }
         }
