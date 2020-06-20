@@ -17,16 +17,30 @@ public class QNode {
     }
 
     public void addQNode(QNode n) {
-        if(n.next == null) {
+        if (this.next == null) {
+            if (this.priority < n.priority) {
+                this.next = n;
+                n.previous = this;
+            } else if (this.priority > n.priority) {
+                this.previous = n;
+                n.next = this;
+            }
+            return;
         }
-        if (n.next != null && n.priority > n.getNext().getPriority()) {
-            n.getNext().addQNode(n);
-        }
-        QNode temp = this.next;
-        this.next = n;
-        this.next.next = temp;
-    }
 
+        QNode currNext = this.getNext();
+        if (n.priority < this.priority){
+            this.previous = n;
+            n.next = this;
+        }
+        if (n.priority > this.priority && n.priority < currNext.getPriority()) {
+            this.next = n;
+            n.next = currNext;
+            n.previous = this;
+            currNext.previous = n;
+            //n.getNext().addQNode(n);
+        }
+    }
 
     public int getPriority() {
         return priority;
