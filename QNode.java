@@ -18,28 +18,19 @@ public class QNode {
 
     public void addQNode(QNode n) {
         if (this.next == null) {
-            if (this.priority < n.priority) {
+            if (this.priority <= n.priority) {
                 this.next = n;
                 n.previous = this;
-            } else if (this.priority > n.priority) {
+            } else {
+                QNode temp = this.previous;
                 this.previous = n;
                 n.next = this;
+                n.previous = temp;
+                temp.next = n;
             }
             return;
         }
-
-        QNode currNext = this.getNext();
-        if (n.priority < this.priority){
-            this.previous = n;
-            n.next = this;
-        }
-        if (n.priority > this.priority && n.priority < currNext.getPriority()) {
-            this.next = n;
-            n.next = currNext;
-            n.previous = this;
-            currNext.previous = n;
-            //n.getNext().addQNode(n);
-        }
+        this.getNext().addQNode(n);
     }
 
     public int getPriority() {
