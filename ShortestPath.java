@@ -1,10 +1,8 @@
-import java.awt.desktop.QuitEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class ShortestPath {
 
@@ -15,21 +13,40 @@ public class ShortestPath {
     }
 
     public String nodesInShortestPath(String start, String end) {
-        // question 5
         Node s = nodes.get(start);
         Node e = nodes.get(end);
+        ArrayList<Node> nodesInShortestPath = new ArrayList<>();
 
-        return ("[]");
+        nodesInShortestPath.add(e);
+        Node currNode = e;
+        while (!currNode.equals(s)) {
+            EdgeList edgeList = currNode.getEdges();
+            for (int i = 0; i < edgeList.length(); i++) {
+                Node temp = edgeList.get(i).getEndNode();
+                int distance = edgeList.get(i).getDistance();
+                if ((temp.getShortestDistance() + distance) == currNode.getShortestDistance()) {
+                    currNode = temp;
+                    nodesInShortestPath.add(currNode);
+                }
+            }
+        }
+
+        Collections.reverse(nodesInShortestPath);
+        String result = "[";
+        for (Node n : nodesInShortestPath) {
+            result += n.getLabel();
+        }
+        result += "]";
+        return result;
     }
 
+
     public int shortestPath(String start, String end) {
-        // question 4
         Node startNode = nodes.get(start);
         Node endNode = nodes.get(end);
         PriorityQueue queue = new PriorityQueue();
 
         startNode.setAsStartNode();
-        //int shortest = startNode.getShortestDistance();
         queue.add(0, startNode);
 
         while (queue.hasNext()) {
@@ -40,9 +57,6 @@ public class ShortestPath {
                 for (int i = 0; i < currNode.getEdges().length(); i++) {
                     Edge edge = currNode.getEdges().get(i);
                     Node n = edge.getEndNode();
-//                    if (n.equals(currNode)) {
-//                        n = edge.getStartNode();
-//                    }
                     if (!n.hasBeenVisited()) {
                         int distance = edge.getDistance();
                         int currDistance = currNode.getShortestDistance();

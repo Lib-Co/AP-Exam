@@ -15,7 +15,7 @@ public class Main {
 		// Question 4 Tests
 		System.out.println(runQ4Tests());
 		// Question 5 Tests
-		System.out.println(runQ5Tests());
+ 		System.out.println(runQ5Tests());
 	}
 	
 	// Question 1 Tests
@@ -119,10 +119,10 @@ public class Main {
 			int shortest = sp.shortestPath("B", "M");
 			String nodes = sp.nodesInShortestPath("B","M");
 			if(nodes.equals("[BDHKM]")) {
-				return "Node in Shortest Path Test Passed";
+				return "Nodes in Shortest Path Test Passed";
 			}
 			else {
-				return "Node in Shortest Path Test Failed";
+				return "Nodes in Shortest Path Test Failed";
 			}
 		}
 		catch(Exception e) {
