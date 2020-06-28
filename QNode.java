@@ -30,7 +30,9 @@ public class QNode {
             }
             return;
         }
-        this.getNext().addQNode(n);
+        if (next.getPriority() > priority) {
+            next.addQNode(n);
+        }
     }
 
     public int getPriority() {

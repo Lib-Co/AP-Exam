@@ -95,7 +95,7 @@ public class Main {
 	private String q4ExampleTest() {
 		try {
 			ShortestPath sp = init("graph.txt");
-			int shortest = sp.shortestPath("B", "M");
+ 			int shortest = sp.shortestPath("B", "M");
 			if(shortest == 8) {
 				return "Shortest Path Test Passed";
 			}
@@ -135,6 +135,7 @@ public class Main {
 		sp.readInNodes(fileName);
 		return sp;
 	}
-	
+
+	//public addToQueue ()
 	
 }

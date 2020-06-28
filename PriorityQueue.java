@@ -1,3 +1,4 @@
+import com.sun.source.tree.BreakTree;
 
 public class PriorityQueue {
     private QNode root;
@@ -12,14 +13,21 @@ public class PriorityQueue {
             root = new QNode(priority, n);
             return;
         }
-        root.addQNode(new QNode(priority, n));
-
+        if (priority >= root.getPriority()) {
+            root.addQNode(new QNode(priority, n));
+            return;
+        }
+        QNode temp = root;
+        root = new QNode(priority, n);
+        root.setNext(temp);
+        temp.setPrevious(root);
     }
 
     public Node getNextHighestPriorityNode() {
-        // question 3
-        root.getNext().getNode();
-        return null;
+        if (root.getNode().hasBeenVisited()) {
+            root = root.getNext();
+        }
+        return root.getNode();
     }
 
     public boolean hasNext() {
